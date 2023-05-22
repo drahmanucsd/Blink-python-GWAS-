@@ -18,3 +18,6 @@ What plink does:
 ### Asymptotic and empirical p-values
 ### Flexible clustered permutation scheme
 ### Analysis of genotype probability data and fractional allele coounts (post-imputation)
+
+### Simulation of Phenotypes
+- https://yanglab.westlake.edu.cn/software/gcta/#GWASSimulation
