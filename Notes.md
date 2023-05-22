@@ -21,8 +21,10 @@ What plink does:
 
 ### Simulation of Phenotypes
 - https://yanglab.westlake.edu.cn/software/gcta/#GWASSimulation <-- GCTA
+- https://haptools.readthedocs.io/en/stable/index.html <-- haptools ** (Prof recommended)
 
 ### Simulation of Synthetic Genetic Data Using Hapgen
 - https://mathgen.stats.ox.ac.uk/genetics_software/hapgen/hapgen2.html <-- Hapgen
+- https://haptools.readthedocs.io/en/stable/index.html <-- haptools ** (Prof recommended)
 
 
