@@ -20,4 +20,9 @@ What plink does:
 ### Analysis of genotype probability data and fractional allele coounts (post-imputation)
 
 ### Simulation of Phenotypes
-- https://yanglab.westlake.edu.cn/software/gcta/#GWASSimulation
+- https://yanglab.westlake.edu.cn/software/gcta/#GWASSimulation <-- GCTA
+
+### Simulation of Synthetic Genetic Data Using Hapgen
+- https://mathgen.stats.ox.ac.uk/genetics_software/hapgen/hapgen2.html <-- Hapgen
+
+
