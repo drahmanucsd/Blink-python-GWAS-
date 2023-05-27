@@ -4,7 +4,17 @@ This tool, Blink, is used to perform genome-wide association studies (GWAS). GWA
 ## Installation instructions
 Installation requires the haptools library to be installed. You can install these with pip:
 
-pip install haptools
+`pip install haptools`
+
+Once the required libraries are installed you can install blink with the following command:
+
+`python setup.py install` (to be implemented this coming week)
+
+Note: If you do not have root access, you can run the commands aboce with the additional options to install locally:
+
+`pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
+
+`python setup.py install --user`
 
 ## Basic usage instructions
 
