@@ -22,11 +22,15 @@ Note: If you do not have root access, you can run the commands aboce with the ad
 
 `python setup.py install --user`
 
+If `blink` was installed correctly, try `blink --help` to see if instructions to run `blink` are provided.
+
 ## Basic usage instructions
-Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code.
+Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code. FOLLOW THE INSTRUCTIONS PROVIDED!
 * For the simulate_pheno jupyter notebook, you will need to use your own variants to run the tool for converting .vcf files to .hap files
 
+The basic usage of `blink` will be: 
 
+`blink [other options]` (will be specified soon once we integrate everything)
 
 ## Complete usage instructions 
 We have no fully implemented the complete usage of `blink` yet and will be incorporating it this upcoming week. (The options below will not work properly yet)
