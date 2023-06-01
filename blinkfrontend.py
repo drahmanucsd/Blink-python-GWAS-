@@ -1,15 +1,40 @@
-# from haptools import data
-# from haptools.sim_phenotype import Haplotype
+from haptools import data
+from haptools.sim_phenotype import Haplotype
 import argparse
 # import pandas as pd
 # import statsmodels.api as sm
 # import matplotlib.pyplot as plt
 import os
 
-def vcf_to_hap(vcf_path:str, hpath: str):
+def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
     if hpath == None or hpath == '' or not os.path.isdir(hpath):
         hpath = 'haptools'
-    print(vcf_path,hpath)
+    # which variants do we want to write to the haplotype file?
+    variants = {"rs149635655", "rs141306699"}
+
+    # load the genotypes file
+    # you can use either a VCF or PGEN file
+    gt = data.GenotypesVCF(vcf_path)
+    gt.read(variants=variants)
+
+    # initialize an empty haplotype file
+    hp = data.Haplotypes(hap_out_path, haplotype=Haplotype)
+    hp.data = {}
+
+    for variant in gt.variants:
+        ID, chrom, pos, alleles = variant[["id", "chrom", "pos", "alleles"]]
+        end = pos + len(alleles[1])
+
+        # create a haplotype line in the .hap file
+        # you should fill out "beta" with your own value
+        hp.data[ID] = Haplotype(chrom=chrom, start=pos, end=end, id=ID, beta=0.5)
+
+        # create variant lines for each haplotype
+        hp.data[ID].variants = (data.Variant(start=pos, end=end, id=ID, allele=alleles[1]),)
+
+    hp.write()
+    pheno_gen_cmd = hpath + " simphenotype "+ vcf_path + " " + hap_out_path+ " -o " +pheno_out_path
+    os.system(pheno_gen_cmd)
 
 def abhi_cmd(geno_path, pheno_path,out_path):
     print("hi")
@@ -25,6 +50,8 @@ def main():
     #simdata func parameters
     #required input vcf file, and optional haptools path if default fails 
     simdata.add_argument('--i',help="Path to input vcf file", type=str, required=True)
+    simdata.add_argument('--hapout',type=str,help="Path to output .hap file", required=True)
+    simdata.add_argument('--phenout',type=str,help="Path to output file of phenotypes", required=True)
     simdata.add_argument('--hpath', help='Haptools path (Eg: ~/.local/bin/haptools)', type=str, required=False)
     # gwas func parameters
     # takes required geno, pheno, and output file
@@ -36,7 +63,7 @@ def main():
     
     #Function Exec calls
     if args.command == 'simdata':
-        vcf_to_hap(args.i,args.hpath)
+        vcf_to_hap(args.i,args.hpath,args.hapout, args.phenout)
     elif args.command == 'gwas':
         abhi_cmd(args.g,args.p,args.o)
     else:
