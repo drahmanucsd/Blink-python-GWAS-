@@ -27,7 +27,7 @@ Note: If you do not have root access, you can run the commands aboce with the ad
 
 `python setup.py install --user`
 
-If `blink` was installed correctly, try `python blinkfrontend.py` to see if instructions to run `blink` are provided.
+If `blink` was installed correctly, try `python blinkfrontend.py -h` to see if instructions to run `blink` are provided.
 
 ## Testing on Small Data
 ### Simulating phenotypes to run GWAS on
@@ -41,6 +41,18 @@ Run the command below to simulate the phenotypes:
 `python blinkfrontend.py simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
 
 Ex: `python blinkfrontend.py simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --hapout ~/teams/31/output.hap --phenout simulated.phen --hpath ~/.local/bin/haptools`
+
+If you would like more information run this command: `python blinkfrontend.py simdata -h`
+
+### Running GWAS
+
+* Make sure you have a .vcf.gz file, a .phen file, and a path you would like the graphs to be outputted. Most of these are generated or retrieved from the step above
+
+Run the command below to run GWAS on the dataset:
+
+`python blinkfrontend.py gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
+
+Ex: `python blinkfrontend.py simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --p ~/teams/31/simulated.phen --o ~/teams/31/graphs`
 
 ## Basic usage instructions
 Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code. FOLLOW THE INSTRUCTIONS PROVIDED!
