@@ -25,9 +25,11 @@ Once the required libraries are installed you can install `blink` with the follo
 
 `python setup.py install`
 or
-`python setup.py install --user`
+`python setup.py install --user` (if you don't have root permission and run into an error) 
 
-If `blink` was installed correctly, try `python blink.py -h` to see if instructions to run `blink` are provided.
+DO THIS RIGHT AFTER AS WELL `export PATH=$PATH:$HOME/.local/bin`)
+
+If `blink` was installed correctly, try `blink -h` to see if instructions to run `blink` are provided.
 
 ## Testing Data
 ### Simulating phenotypes to run GWAS on
@@ -40,9 +42,9 @@ If `blink` was installed correctly, try `python blink.py -h` to see if instructi
 
 Run the command below to simulate the phenotypes:
 
-`python blink.py simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
+`blink simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
 
-Ex: `python blink.py simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --hapout ~/teams/31/output.hap --phenout simulated.phen --hpath ~/.local/bin/haptools`
+Ex: `blink simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --hapout ~/teams/31/output.hap --phenout simulated.phen --hpath ~/.local/bin/haptools`
 
 If you would like more information run this command: `python blink.py simdata -h`
 
@@ -52,9 +54,9 @@ If you would like more information run this command: `python blink.py simdata -h
 
 Run the command below to run GWAS on the dataset:
 
-`python blink.py gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
+`blink gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
 
-Ex: `python blink.py simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --p ~/teams/31/simulated.phen --o ~/teams/31/graphs`
+Ex: `blink simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --p ~/teams/31/simulated.phen --o ~/teams/31/graphs`
 
 ## Basic usage instructions
 Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code. FOLLOW THE INSTRUCTIONS PROVIDED!
