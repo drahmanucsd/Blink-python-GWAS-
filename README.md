@@ -20,8 +20,13 @@ Note: If you do not have root access, you can run the commands aboce with the ad
 
 `pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
 
-Once the required libraries are installed you can install `blink` with the following command:
+Then git clone our repository using this command (We recommend making a new directory and then cloning it in that directory):
 
+`git clone https://github.com/drahmanucsd/Blink-python-GWAS-.git`
+
+Once you are in the directory you created and the required libraries are installed you can install `blink` with the following command:
+
+`cd Blink-python-GWAS-`
 `python setup.py install`
 or
 `python setup.py install --user` (if you don't have root permission and run into an error) 
@@ -61,6 +66,9 @@ Run this example command before to run it on the lab 3 GWAS data!
 Ex: `blink gwas --g ~/public/lab3/lab3_gwas.vcf.gz --p ~/public/lab3/lab3_gwas.phen`
 
 Access the test.png file which will be located in the directory you call the command on and will contain the Manhattan and QQ plot!
+
+If you would like more information run this command: `python blink.py gwas -h`
+
 Have fun :)
 
 ## Basic usage instructions
