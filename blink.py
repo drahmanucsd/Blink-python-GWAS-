@@ -45,7 +45,7 @@ def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
     df.to_csv(pheno_out_path, sep='\t', index=False)
     print(f"Simulated phenotypes saved to: {pheno_out_path}")
 
-def abhi_cmd(geno_path, pheno_path,out_path):
+def gwas_cmd(geno_path, pheno_path,out_path):
     print("hi")
 
 def main():
@@ -74,7 +74,7 @@ def main():
     if args.command == 'simdata':
         vcf_to_hap(args.i,args.hpath,args.hapout, args.phenout)
     elif args.command == 'gwas':
-        abhi_cmd(args.g,args.p,args.o)
+        gwas_cmd(args.g,args.p,args.o)
     else:
         parser.print_help()
         
