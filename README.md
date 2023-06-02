@@ -32,9 +32,15 @@ If `blink` was installed correctly, try `python blinkfrontend.py` to see if inst
 ## Testing on Small Data
 ### Simulating phenotypes to run GWAS on
 
-* Download this file  
+* Download the vcf file we used using `wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz`
+* It will take a while because it is an over 2gbs
+* Feel free to change the variants in the blinkfrontend.py file but we have defaulted it to rs149635655 and rs141306699 to work with that specific 1000Genomes dataset
 
-`python blinkfrontend.py simdata --i GENOTYPES(vcf.gz format) --hapout PATH TO output.hap --phenout (NAME OF FILE).phen --hpath ~/.local/bin/haptools`
+Run the command below to simulate the phenotypes:
+
+`python blinkfrontend.py simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
+
+Ex: `python blinkfrontend.py simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --hapout ~/teams/31/output.hap --phenout simulated.phen --hpath ~/.local/bin/haptools`
 
 ## Basic usage instructions
 Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code. FOLLOW THE INSTRUCTIONS PROVIDED!
