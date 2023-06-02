@@ -104,6 +104,8 @@ def readData(genotypeData, phenotypeData):
     phenotypes = pd.read_csv(phenotypeData, sep='\t', header=None, names=['ID', 'ID2', 'Val']).drop(columns=["ID2"])
     #takes only the top 10 SNPS; only for testing
     #get_snps = genotypes.head(len(genotypes))
+    
+    #This runs our code on a small chunk of data
     get_snps = genotypes.head(100)
     get_snps_reformat = get_snps.drop(columns=['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'])
     
