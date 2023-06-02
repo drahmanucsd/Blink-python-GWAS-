@@ -2,29 +2,23 @@ from haptools import data
 from haptools.sim_phenotype import Haplotype
 import argparse
 import pandas as pd
-import statsmodels.api as sm
-import matplotlib.pyplot as plt
+# import statsmodels.api as sm
+# import matplotlib.pyplot as plt
 import os
 
-def vcf_to_hap(str vcf_path):
+def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
+    if hpath == None or hpath == '' or not os.path.isdir(hpath):
+        hpath = 'haptools'
     # which variants do we want to write to the haplotype file?
     variants = {"rs149635655", "rs141306699"}
-    #df = pd.read_csv("/home/jtliew/teams/31/variants.csv", header=None, names=['Variants'])
-    #df = pd.read_csv("/home/jtliew/teams/31/variants.csv")
-    #val = df.get("Variants")
 
-    #for i in val:
-        variants.add(i)
-
-    #print(variants)
-    
     # load the genotypes file
     # you can use either a VCF or PGEN file
     gt = data.GenotypesVCF(vcf_path)
     gt.read(variants=variants)
 
     # initialize an empty haplotype file
-    hp = data.Haplotypes("output.hap", haplotype=Haplotype)
+    hp = data.Haplotypes(hap_out_path, haplotype=Haplotype)
     hp.data = {}
 
     for variant in gt.variants:
@@ -39,73 +33,48 @@ def vcf_to_hap(str vcf_path):
         hp.data[ID].variants = (data.Variant(start=pos, end=end, id=ID, allele=alleles[1]),)
 
     hp.write()
-    
-    
-def linear_reg(str data_path):
-    # Read the GWAS dataset into a dataframe
-    #df = pd.read_csv('fake_gwas_data2.csv')
-    df = pd.read_csv(data_path)
 
-    # Extract the genotypes and phenotype
-    genotypes = df[['Genotype1', 'Genotype2', 'Genotype3']]
-    phenotype = df['Phenotype']
+    #Generates the phenotype using haptools linux command
+    pheno_gen_cmd = hpath + " simphenotype "+ vcf_path + " " + hap_out_path+ " -o " +pheno_out_path
+    os.system(pheno_gen_cmd)
 
-    # Encode the genotypes as numeric values
-    genotypes_encoded = genotypes.replace({'A/A': 0, 'A/T': 1, 'A/C': 2, 'G/T': 3,
-                                           'T/T': 4, 'T/C': 5, 'T/G': 6,
-                                           'C/C': 7, 'C/G': 8, 'G/G': 9})
+    #Reformatting the simulated phenotypes to .phen format
+    df = pd.read_csv(pheno_out_path, sep='\t')
+    df.insert(1, 'New Column', df.iloc[:, 0])
+    df.to_csv(pheno_out_path, sep='\t', index=False)
+    print(f"Simulated phenotypes saved to: {pheno_out_path}")
 
-    # Add an intercept term to the genotypes
-    genotypes_encoded = sm.add_constant(genotypes_encoded)
-
-    # Fit a linear regression model
-    model = sm.OLS(phenotype, genotypes_encoded)
-    results = model.fit()
-
-    # Perform GWAS
-    p_values = results.pvalues[1:]  # Exclude the intercept term
-    significant_snps = p_values[p_values < 0.05]  # Adjust the significance threshold as needed
-
-    # Print significant SNPs
-    for snp, p_value in significant_snps.items():
-        print(f'SNP: {snp}, p-value: {p_value}')
-
-    print(results.summary())
-
-    # Predict the phenotype values
-    predicted_phenotype = results.predict(genotypes_encoded)
-
-    # Create a scatter plot of actual vs predicted phenotype values
-    plt.scatter(phenotype, predicted_phenotype)
-    plt.xlabel('Actual Phenotype')
-    plt.ylabel('Predicted Phenotype')
-    plt.title('Linear Regression - Actual vs Predicted Phenotype')
-    plt.show()
+def abhi_cmd(geno_path, pheno_path,out_path):
+    print("hi")
 
 def main():
-    parser = argparse.ArgumentParser(prog='blink',description="Command-line tool to perform basic GWAS")
+    parser = argparse.ArgumentParser(prog='blink',description="Command-line tool to perform basic gwas")
 
-    parser.add_argument('genotypes',type=str,help="Path to the genotype file (.vcf.gz format)")
-    
-    parser.add_argument('test_csv',type=str,help="Path to the test file (.csv format)")
-    
-    parser.add_argument('output',type=str,help="Enter your first name")
+    #Create the 2 command options
+    subparser = parser.add_subparsers(dest='command')
+    simdata = subparser.add_parser('simdata', help='Generates simulated phenotypes')
+    gwas = subparser.add_parser('gwas', help='Generates QQ plot after perfomring gwas')
+
+    #simdata func parameters
+    #required input vcf file, and optional haptools path if default fails 
+    simdata.add_argument('--i',help="Path to input vcf file", type=str, required=True)
+    simdata.add_argument('--hapout',type=str,help="Path to output .hap file", required=True)
+    simdata.add_argument('--phenout',type=str,help="Path to output file of phenotypes", required=True)
+    simdata.add_argument('--hpath', help='Haptools path (Eg: ~/.local/bin/haptools)', type=str, required=False)
+    # gwas func parameters
+    # takes required geno, pheno, and output file
+    gwas.add_argument('--g',type=str,help="Path to the genotype file (.vcf.gz format)", required=True)
+    gwas.add_argument('--p',type=str,help="Path to the test file (.phen format)", required=True)
+    gwas.add_argument('--o',type=str,help="Path to output graph file (.png format)", required=True)
 
     args = parser.parse_args()
     
-    subparsers = parser.add_subparsers(title='subcommands', dest='subcommand')
-
-    vcf_to_hap = subparsers.add_parser('vcf_to_hap', help='Runs vcf_to_hap')
-    linear_reg = subparsers.add_parser('linear_reg', help='Run linear_reg')
-
-    args = parser.parse_args()
-
-    if args.subcommand == 'vcf_to_hap':
-        vcf_to_hap(args.genotypes)
-    elif args.subcommand == 'linear_reg':
-        linear_reg(args.test_csv)
+    #Function Exec calls
+    if args.command == 'simdata':
+        vcf_to_hap(args.i,args.hpath,args.hapout, args.phenout)
+    elif args.command == 'gwas':
+        abhi_cmd(args.g,args.p,args.o)
     else:
         parser.print_help()
-
-if __name__ == '__main--':
-    main()
+        
+main()

@@ -1,6 +1,0 @@
-SNP,Chromosome,Position,Allele1,Allele2,Genotype1,Genotype2,Genotype3,Phenotype
-rs1,1,100,A,C,A/C,A/A,C/C,0.8
-rs2,1,200,G,T,G/T,G/G,T/T,1.2
-rs3,2,150,C,G,C/C,C/G,G/G,1.0
-rs4,2,250,A,T,A/T,A/A,T/T,1.5
-rs5,3,300,T,C,T/C,T/T,C/C,0.9
