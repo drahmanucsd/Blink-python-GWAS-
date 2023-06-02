@@ -8,8 +8,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'blink = blink.blink:main',
-            'blink = blink:main',
+            'blink = blink:main'
         ],
     },
 )
