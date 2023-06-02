@@ -62,7 +62,7 @@ For this part of the test we will be using lab3_GWAS's .vcf.gz and .phen file du
 
 `blink gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
 
-Run this example command before to run it on the lab 3 GWAS data!
+Run this example command below to run it on the lab 3 GWAS data!
 Ex: `blink gwas --g ~/public/lab3/lab3_gwas.vcf.gz --p ~/public/lab3/lab3_gwas.phen`
 
 Access the test.png file which will be located in the directory you call the command on and will contain the Manhattan and QQ plot!
