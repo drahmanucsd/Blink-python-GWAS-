@@ -7,6 +7,7 @@ import pandas as pd
 import os
 
 def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
+#THE CODE BELOW IS CREDITED TO Massarat, A. R., Lamkin, M., Reeve, C., Williams, A. L., D’Antonio, M., & Gymrek, M. Haptools: a toolkit for admixture and haplotype analysis [Computer software]. https://github.com/CAST-genomics/haptools who created haptools (Was granted permission to use from Professor Gymrek)
     if hpath == None or hpath == '' or not os.path.isdir(hpath):
         hpath = 'haptools'
     # which variants do we want to write to the haplotype file?
