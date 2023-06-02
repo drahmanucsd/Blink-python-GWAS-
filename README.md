@@ -13,26 +13,28 @@ NOTE: WE ARE RUNNING OUR CODE MAINLY ON JUPYTER NOTEBOOK FOR THE TIME BEING (WE 
 - Follow the instructions on the notebook
 
 ## Installation instructions
-Installation requires the `haptools` library to be installed. You can install these with pip:
+Installation requires the [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) library to be installed. You can install these with pip:
 
 `pip install haptools`
-
-Once the required libraries are installed you can install `blink` with the following command:
-
-`python setup.py install` (to be implemented this coming week)
 
 Note: If you do not have root access, you can run the commands aboce with the additional options to install locally:
 
 `pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
 
+Once the required libraries are installed you can install `blink` with the following command:
+
+`python setup.py install`
+or
 `python setup.py install --user`
 
 If `blink` was installed correctly, try `python blinkfrontend.py -h` to see if instructions to run `blink` are provided.
 
-## Testing on Small Data
+## Testing Data
 ### Simulating phenotypes to run GWAS on
 
-* Download the vcf file we used using `wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz`
+* Download the vcf file we used using 
+
+`wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz`
 * It will take a while because it is an over 2gbs
 * Feel free to change the variants in the blinkfrontend.py file but we have defaulted it to rs149635655 and rs141306699 to work with that specific 1000Genomes dataset
 
