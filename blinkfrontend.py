@@ -1,7 +1,7 @@
 from haptools import data
 from haptools.sim_phenotype import Haplotype
 import argparse
-# import pandas as pd
+import pandas as pd
 # import statsmodels.api as sm
 # import matplotlib.pyplot as plt
 import os
@@ -33,8 +33,16 @@ def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
         hp.data[ID].variants = (data.Variant(start=pos, end=end, id=ID, allele=alleles[1]),)
 
     hp.write()
+
+    #Generates the phenotype using haptools linux command
     pheno_gen_cmd = hpath + " simphenotype "+ vcf_path + " " + hap_out_path+ " -o " +pheno_out_path
     os.system(pheno_gen_cmd)
+
+    #Reformatting the simulated phenotypes to .phen format
+    df = pd.read_csv(pheno_out_path, sep='\t')
+    df.insert(1, 'New Column', df.iloc[:, 0])
+    df.to_csv(pheno_out_path, sep='\t', index=False)
+    print(f"Simulated phenotypes saved to: {pheno_out_path}")
 
 def abhi_cmd(geno_path, pheno_path,out_path):
     print("hi")
