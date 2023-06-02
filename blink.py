@@ -8,7 +8,7 @@ import argparse
 import pandas as pd
 import matplotlib
 # import statsmodels.api as sm
-# import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 import os
 
 def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
