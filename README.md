@@ -7,9 +7,7 @@
 # Blink-python-GWAS
 This tool, Blink, is used to perform genome-wide association studies (GWAS). GWAS is important as it helps scientists identify genes associated with diseases or traits. Our implementation will compared to a GWAS tool called plink which is well-known in the bioinformatic field. 
 
-NOTE: WE ARE RUNNING OUR CODE MAINLY ON JUPYTER NOTEBOOK FOR THE TIME BEING (WE ARE STILL IN THE WORKS OF IMPLEMENTING OUR CODE WITH THE REAL WORLD DATA)
 - You will unfortunately need to install a 2gb file that contains the genotypes from 1000Genomes
-- Please upload that vcf.gz file to your directory
 - Follow the instructions on the notebook
 
 ## Installation instructions
