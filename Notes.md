@@ -5,7 +5,7 @@ What plink does:
 
 
 ## Linear regression
-[https://towardsdatascience.com/the-complete-guide-to-linear-regression-in-python-3d3f8f06bf8](Scroll to "Simple Linear Regression")
+[Scroll to "Simple Linear Regression"](https://towardsdatascience.com/the-complete-guide-to-linear-regression-in-python-3d3f8f06bf8)
 
 New link math check?
 https://zzz.bwh.harvard.edu/plink/tutorial.shtml
