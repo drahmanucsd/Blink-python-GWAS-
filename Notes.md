@@ -38,3 +38,5 @@ Things to work on:
 - Confounding factors?
 - Generalizing code
 - improving efficinecy
+
+Add a references slide
