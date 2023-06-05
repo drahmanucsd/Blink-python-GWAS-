@@ -32,15 +32,15 @@ New link math check?
 https://zzz.bwh.harvard.edu/plink/tutorial.shtml
 
 Things to work on:
-- Is the math correct
+- Switch to a linear regression
 - preprocesssing
-- removing p values
+  - removing p values
 - Confounding factors?
 - Generalizing code
 - improving efficinecy
 
 
-
+Presentation Notes
 - Purpose/imputs/outputs
   - Accessibility? -- can pip install
 - Add a references slide
