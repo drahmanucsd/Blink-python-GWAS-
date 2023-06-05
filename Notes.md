@@ -28,10 +28,13 @@ What plink does:
 - https://haptools.readthedocs.io/en/stable/index.html <-- haptools ** (Prof recommended)
 
 
+New link math check?
+https://zzz.bwh.harvard.edu/plink/tutorial.shtml
+
 Things to work on:
-Is the math correct
-preprocesssing
- -removing p values
-Confounding factors?
-Generalizing code
-improving efficinecy
+- Is the math correct
+- preprocesssing
+- removing p values
+- Confounding factors?
+- Generalizing code
+- improving efficinecy
