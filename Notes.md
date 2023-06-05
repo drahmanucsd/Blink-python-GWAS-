@@ -28,3 +28,10 @@ What plink does:
 - https://haptools.readthedocs.io/en/stable/index.html <-- haptools ** (Prof recommended)
 
 
+Things to work on:
+Is the math correct
+preprocesssing
+ -removing p values
+Confounding factors?
+Generalizing code
+improving efficinecy
