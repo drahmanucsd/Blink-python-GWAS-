@@ -39,4 +39,9 @@ Things to work on:
 - Generalizing code
 - improving efficinecy
 
-Add a references slide
+
+
+- Purpose/imputs/outputs
+  - Accessibility? -- can pip install
+- Add a references slide
+- Challenges
