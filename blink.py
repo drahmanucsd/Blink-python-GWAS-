@@ -67,6 +67,15 @@ def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
     df = pd.read_csv(pheno_out_path, sep='\t')
     df.insert(1, 'New Column', df.iloc[:, 0])
     df.to_csv(pheno_out_path, sep='\t', index=False)
+
+    # Remove the first line
+    with open(pheno_out_path, 'r') as file:
+        lines = file.readlines() 
+    lines = lines[1:]
+    # Open the file in write mode and write the modified lines
+    with open(pheno_out_path, 'w') as file:
+        file.writelines(lines)
+
     print(f"Simulated phenotypes saved to: {pheno_out_path}")
 
 
@@ -95,7 +104,7 @@ def process_SNPS(genotype_df, phenotype_df, row_number,maf):
     if ressive_count/(ressive_count+dominant_count)<maf:
         return None, None
         
-    sum_values = [int(string.split('|')[0]) + int(string.split('|')[1]) for string in values] #this is a list of the summed values per row
+    sum_values = [int(string.split('|')[0]) + int(string.split('|')[1][0]) for string in values] #this is a list of the summed values per row
 
     gts = np.array(sum_values)
     
@@ -127,8 +136,8 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
             outfile: output dir of both graphs in png format
             
     """
-    # zero_list = [0] * len(pval_list) #NEED TO CHANGE THIS
-    zero_list = [x/0.15 for x in beta_list]
+    zero_list = [0] * len(pval_list) #NEED TO CHANGE THIS
+    # zero_list = [x/0.15 for x in beta_list]
     #first make the dataframe for a qq plot
     qq_df = pd.DataFrame({'CHR': genotype_data.get("#CHROM"), 'SNP': genotype_data.get("ID"), 
                       "BP" : genotype_data.get("POS"), "A1" : genotype_data.get("REF"), "TEST" : genotype_data.get("FILTER"), 
@@ -147,6 +156,10 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
 
 
 def find_skip_lines(file_path):
+    """
+    Function: Searches Genome file and ouputs the terminating line of the header
+    Parameter file_path: the user inputed genome file
+    """
     with open(file_path, 'r') as file:
         for line_number, line in enumerate(file, 1):
             if '#CHROM' in line:
@@ -174,13 +187,13 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     genotypes = pd.read_csv(genotypeData, skiprows=lines_to_skip, sep='\t')
     #read phenotype data
     phenotypes = pd.read_csv(phenotypeData, sep='\t', header=None, names=['ID', 'ID2', 'Val']).drop(columns=["ID2"])
-    #takes only the top 10 SNPS; only for testing
     #get_snps = genotypes.head(len(genotypes))
     
     #This runs our code on a small chunk of data
     get_snps = genotypes.head(100)
     get_snps_reformat = get_snps.drop(columns=['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'])
     
+    # Reorganize the phenotypes df such that it lines up with the order of the samples that occur in the genotypes file
     for name_id in get_snps_reformat.columns.values.tolist():
         temp = phenotypes.loc[phenotypes['ID'] == name_id]
         if temp.empty:
@@ -188,8 +201,8 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
         else:
             val = temp.iloc[0]['Val']
         phenotypes_reformat = phenotypes_reformat.append({'ID':name_id, 'Val':val},ignore_index=True);
-
-
+    
+    #Iterates over every row in genotypes to generate a pval and beta list for plotting
     for i in range(get_snps_reformat.shape[0]):
         out_beta, out_pval = process_SNPS(get_snps_reformat, phenotypes_reformat, i,maf) #CALL process_SNPS
         pval_list.append(out_pval)
