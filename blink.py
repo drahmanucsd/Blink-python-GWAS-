@@ -213,6 +213,11 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     # plt.savefig(outfile, bbox_inches='tight') #let user choose the output file name??
 
 def main():
+    """
+    THE CODE BELOW WAS INSPIRED BY:
+    ARGPARSE tutorial: -- Adapted the framwork for our command line options
+    https://realpython.com/command-line-interfaces-python-argparse/
+    """
     parser = argparse.ArgumentParser(prog='blink',description="Command-line tool to perform basic gwas")
 
     #Create the 2 command options
