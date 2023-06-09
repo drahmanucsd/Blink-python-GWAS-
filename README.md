@@ -9,27 +9,55 @@ This tool, Blink, is used to perform genome-wide association studies (GWAS). GWA
 
 ## Table of Contents
 * Installation Instructions
+    - Install Prerequisites
+    - Clone Repository
 * Example Testing
+    - Simulation Generation
+    - Runnin GWAS
 * Usage Instructions
+    - Options Description
+* Troubleshooting
 * Credits
 
  **_NOTE:_**  All citation and resources are located in the Notes.md file
 
-## Installation Instructions
-1. Run this on your datahub server! (All the libraries are installed on there already other than haptools)
-Installation requires the [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) library to be installed. You can install these with pip:
+# Installation Instructions
 
->`pip install haptools`
+Installation requires the following packages:
 
-Note: If you do not have root access, you can run the commands aboce with the additional options to install locally:
+* [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) (Only package not already installed in datahub)
 
->`pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
+    >`pip install haptools`
 
-2. Then git clone our repository using this command (We recommend making a new directory and then cloning it in that directory):
+    **Note**: If you do not have root access, you can run the commands aboce with the additional options to install locally:
+
+    >`pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
+
+    **Note**: If you attempting to run on a windows machine, haptools may not install. Blink can still be built/installed, but with limited functionality. See **Troubleshooting** for more information.
+
+* [`qqman`](https://pypi.org/project/qqman/):
+    >`pip install qqman`
+* [statsmodels](https://www.statsmodels.org/stable/install.html):
+    > `python -m pip install statsmodels
+
+The following should automatically also be installed, if not:
+* [numpy](https://numpy.org/install/):
+    > `pip install numpy`
+* [pandas](https://pandas.pydata.org/getting_started.html):
+    > `pip install pandas`
+* [matplotlib](https://matplotlib.org/stable/users/installing/index.html):
+    > `pip install matplotlib`  
+
+**Note**: If you do not have root access, you may have to specify the user as similar to haptools above. 
+
+
+## Clone Repository
+---
+Then git clone our repository using this command (We recommend making a new directory and then cloning it in that directory):
 
 >`git clone https://github.com/drahmanucsd/Blink-python-GWAS-.git`
 
-3. Once you are in the directory you created and the required libraries are installed you can install `blink` with the following command:
+Once you are in the directory you created and the required libraries are installed you can install `blink` with the following command:
 
 >`cd Blink-python-GWAS-`
 `python setup.py install`
@@ -41,8 +69,8 @@ or
 
 If `blink` was installed correctly, try `blink -h` to see if instructions to run `blink` are provided.
 
-## Testing Data
-### Simulating phenotypes to run GWAS on
+# Testing Data
+## Simulating phenotypes to run GWAS on
 
 * Download the vcf file we used using 
 
@@ -58,7 +86,7 @@ Ex: `blink simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_i
 
 If you would like more information run this command: `python blink.py simdata -h`
 
-### Running GWAS
+## Running GWAS
 
 * Make sure you have a .vcf.gz file and .phen file. Most of these are generated or retrieved from the step above
 
@@ -80,7 +108,7 @@ If you would like more information run this command:
 
 Have fun :)
 
-## Basic usage instructions
+# Basic usage instructions
 Using the python/jupyter notebook files following the instructions in the cell blocks/comments to run the code. You will most likely need to fill in your corresponding files/data to run the code. FOLLOW THE INSTRUCTIONS PROVIDED!
 * For the simulate_pheno jupyter notebook, you will need to use your own variants to run the tool for converting .vcf files to .hap files
 
@@ -88,7 +116,7 @@ The basic usage of `blink` will be:
 
 `blink [other options]` (will be specified soon once we integrate everything)
 
-## Complete usage instructions 
+# Complete usage instructions 
 The following are the currently working options/parameters available for the phenotype simulation and linear regression GWAS
 
 ### Options to Simulate Phenotypes (Ran using the argument `simdata` followed by the options below)
@@ -103,5 +131,34 @@ The following are the currently working options/parameters available for the phe
 * `--out` --> output file name of association pvals and png graphs (no file format because ouptuts multiple files)
 * `--maf` --> minor allelic frequency threshold for filtering low data SNPs (Optional cmd, default=0.01)
 
-## Credits
+# Troubleshooting
+Windows users may encounter an issue with downloading haptools. This is due to pysam working primary on linux based systems.
+
+**Note**: Blink can still run without haptools, however the **simdata** function will not work.
+
+ It is recomended to update pip:
+>`pip install 'pip>=20.3'`
+
+[Pysam](https://pysam.readthedocs.io/en/latest/installation.html) can also be directly instlaled:
+
+`pip install pysam`
+
+- Or if the above command throws the same error, try [nrel-pysam](https://nrel-pysam.readthedocs.io/en/main/installation.html)
+    
+    `pip install nrel-pysam`
+
+Then try to install haptools again:
+>`pip install haptools`
+
+To rebuild blink, make sure to first uninstall the current build:
+```
+pip uninstall blink
+python setup.py install
+```
+
+If none of the above work, see the Notes.md file for links to discussion boards that go further in depth on the problem.
+
+
+
+# Credits
 This repository was generated by Abhishek Ganga, Daniyal Rahman, and Jung Tzen Liew with inspiration from plink, haptools, and the CSE 185 Lab 3 projects. Please submit a pull request with any corrections or suggestions! We accept all criticism.
