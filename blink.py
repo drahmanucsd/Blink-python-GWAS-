@@ -10,6 +10,7 @@ import matplotlib
 # import statsmodels.api as sm
 from matplotlib import pyplot as plt
 import os
+# This is to supress any pandas degredation warnings, mostly on the append func
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -92,33 +93,33 @@ def process_SNPS(genotype_df, phenotype_df, row_number,maf):
             maf: minor allelic frequency used for filtering
 
     """
-    #CREATE THE ARRAY OF GENOTYPE DATA
-    column_names = genotype_df.columns.tolist() #this is a list of all the column names/individuals
+    #CONVERT GENOTYPE DATA INTO ARRAY
+    column_names = genotype_df.columns.tolist() #this is a list of all sample ids
     values = genotype_df.iloc[row_number].values.tolist()
-    #print(values)
-    ressive_count = 0
+    
+    recessive_count = 0
     dominant_count = 0
-    for val in values:
-        ressive_count += val.count('1')
-        dominant_count += val.count('0')
-    if ressive_count/(ressive_count+dominant_count)<maf:
-        return None, None
+
         
     sum_values = [int(string.split('|')[0]) + int(string.split('|')[1][0]) for string in values] #this is a list of the summed values per row
 
     gts = np.array(sum_values)
     
     if np.var(gts) == 0:
-        # print(f"Zero variance for row {row_number}")
         return None, None
     
+    for val in values:
+        recessive_count += val.count('1')
+        dominant_count += val.count('0')
+    if recessive_count == 0 or recessive_count/(recessive_count+dominant_count)<maf or recessive_count/(recessive_count+dominant_count)<maf:
+        return None, None
     gts = (gts-np.mean(gts))/np.sqrt(np.var(gts))
     pts = phenotype_df.get("Val").to_numpy()
     
     #getting beta and pval
     X = sm.add_constant(gts)
-    model = sm.OLS(pts, X)
-    results = model.fit()
+    reg = sm.OLS(pts, X)
+    results = reg.fit()
     beta = results.params[1]
     pval = results.pvalues[1]
     
@@ -136,9 +137,9 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
             outfile: output dir of both graphs in png format
             
     """
-    zero_list = [0] * len(pval_list) #NEED TO CHANGE THIS
-    # zero_list = [x/0.15 for x in beta_list]
-    #first make the dataframe for a qq plot
+    zero_list = [0] * len(pval_list) # Filler val for the STAT col
+    
+    # Make dataframe for qq plot
     qq_df = pd.DataFrame({'CHR': genotype_data.get("#CHROM"), 'SNP': genotype_data.get("ID"), 
                       "BP" : genotype_data.get("POS"), "A1" : genotype_data.get("REF"), "TEST" : genotype_data.get("FILTER"), 
                       "NMISS" : genotype_data.get("QUAL"), "BETA" : beta_list, "STAT" : zero_list, "P" : pval_list})
@@ -157,18 +158,28 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
 
 def find_skip_lines(file_path):
     """
-    Function: Searches Genome file and outputs the terminating line of the header
+    Function: Searches Genome file and ouputs the terminating line of the header
     Parameter file_path: the user inputed genome file
     """
-    with open(file_path, 'r') as file:
-        for line_number, line in enumerate(file, 1):
-            if '#CHROM' in line:
-                return line_number-1
-    return 257  # Default value most likely to be
-
+    try:
+        with open(file_path, 'r') as file:
+                for line_number, line in enumerate(file, 1):
+                    if '#CHROM' in line:
+                        return line_number-1 # want to include the #chrom/column names in df
+                return 257
+    except:
+        try: 
+            with gzip.open(file_path, 'r') as file:
+                for line_number, line in enumerate(file, 1):
+                    if b'#CHROM' in line:
+                        return line_number-1 # want to include the #chrom/column names in df
+                return 257
+        except:
+            return 257
 def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     """
-    Funtion: Reads in the data from the genotype and phenotype files and converts them for processing
+    Funtion: Read in the data from the geno and pheno files and convert 
+        for processing
     Parameters:
         Inputs:
             genotypeData: path to genome dataset in uncompressed vcf format
@@ -182,25 +193,35 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     beta_list = [] #holds beta vals
     
     lines_to_skip = find_skip_lines(genotypeData)
-    # Reads in genotype data
+    #read genotype data
     genotypes = pd.read_csv(genotypeData, skiprows=lines_to_skip, sep='\t')
-    # Reads in phenotype data
+    #read phenotype data
     phenotypes = pd.read_csv(phenotypeData, sep='\t', header=None, names=['ID', 'ID2', 'Val']).drop(columns=["ID2"])
-    # get_snps = genotypes.head(len(genotypes))
-    
-    # This runs our code on a small chunk of data
-    get_snps = genotypes.head(100)
+    #get_snps = genotypes.head(len(genotypes))
+    phenotypes_reformat = pd.DataFrame(columns=['ID','Val'])
+    get_snps = genotypes
+
     get_snps_reformat = get_snps.drop(columns=['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'])
     
     # Reorganize the phenotypes df such that it lines up with the order of the samples that occur in the genotypes file
     for name_id in get_snps_reformat.columns.values.tolist():
         temp = phenotypes.loc[phenotypes['ID'] == name_id]
         if temp.empty:
-            val = 0
+#             print(f'{name_id} not in phenotype file, ignoring...')
+            get_snps_reformat = get_snps_reformat.drop(columns=[name_id])
+            continue
         else:
             val = temp.iloc[0]['Val']
         phenotypes_reformat = phenotypes_reformat.append({'ID':name_id, 'Val':val},ignore_index=True);
+    # Check if any usable data
+    if (phenotypes_reformat['Val']==0).all() or phenotypes_reformat.shape[0]<=1:
+        print('Error: No genotype samples found in phenotype file, please verify input files')
+        return
     
+#     pd.set_option('display.max_rows', None)    # Show all rows
+#     pd.set_option('display.max_columns', None) # Show all columns
+
+    print('Files read. Manipuliating data...')
     #Iterates over every row in genotypes to generate a pval and beta list for plotting
     for i in range(get_snps_reformat.shape[0]):
         out_beta, out_pval = process_SNPS(get_snps_reformat, phenotypes_reformat, i,maf) #CALL process_SNPS
@@ -209,7 +230,6 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
 
     #call plot_data using pval_list and beta_list
     plot_qq(pval_list, beta_list, get_snps,outfile)
-    # plt.savefig(outfile, bbox_inches='tight') #let user choose the output file name??
 
 def main():
     """
