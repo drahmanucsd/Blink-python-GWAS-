@@ -157,7 +157,7 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
 
 def find_skip_lines(file_path):
     """
-    Function: Searches Genome file and ouputs the terminating line of the header
+    Function: Searches Genome file and outputs the terminating line of the header
     Parameter file_path: the user inputed genome file
     """
     with open(file_path, 'r') as file:
@@ -168,8 +168,7 @@ def find_skip_lines(file_path):
 
 def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     """
-    Funtion: Read in the data from the geno and pheno files and convert 
-        for processing
+    Funtion: Reads in the data from the genotype and phenotype files and converts them for processing
     Parameters:
         Inputs:
             genotypeData: path to genome dataset in uncompressed vcf format
@@ -183,13 +182,13 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
     beta_list = [] #holds beta vals
     
     lines_to_skip = find_skip_lines(genotypeData)
-    #read genotype data
+    # Reads in genotype data
     genotypes = pd.read_csv(genotypeData, skiprows=lines_to_skip, sep='\t')
-    #read phenotype data
+    # Reads in phenotype data
     phenotypes = pd.read_csv(phenotypeData, sep='\t', header=None, names=['ID', 'ID2', 'Val']).drop(columns=["ID2"])
-    #get_snps = genotypes.head(len(genotypes))
+    # get_snps = genotypes.head(len(genotypes))
     
-    #This runs our code on a small chunk of data
+    # This runs our code on a small chunk of data
     get_snps = genotypes.head(100)
     get_snps_reformat = get_snps.drop(columns=['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'])
     
