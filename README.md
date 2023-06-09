@@ -27,7 +27,7 @@ Installation requires the following packages:
 
 * [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) (Only package not already installed in datahub)
 
-    `pip install haptools`
+    ```pip install haptools```
 
     **Note**: If you do not have root access, you can run the commands aboce with the additional options to install locally:
 
