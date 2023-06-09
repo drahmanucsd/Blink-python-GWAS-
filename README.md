@@ -2,7 +2,7 @@
 ![matplotlib](https://img.shields.io/badge/matplotlib-3.4.2-red)
 ![numpy](https://img.shields.io/badge/numpy-1.21.1-blue)
 ![pandas](https://img.shields.io/badge/pandas-1.5.3-white)
-![project_status](https://img.shields.io/badge/project__status-work%20in%20progress-orange)
+![project_status](https://img.shields.io/badge/project%20status-stable-green)
 
 # Blink-python-GWAS
 This tool, Blink, is used to perform genome-wide association studies (GWAS). GWAS is important as it helps scientists identify genes associated with diseases or traits. Our implementation will compared to a GWAS tool called plink which is well-known in the bioinformatic field. 
