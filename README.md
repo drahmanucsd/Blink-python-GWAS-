@@ -27,18 +27,20 @@ Installation requires the following packages:
 
 * [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) (Only package not already installed in datahub)
 
-    >`pip install haptools`
+    `pip install haptools`
 
     **Note**: If you do not have root access, you can run the commands aboce with the additional options to install locally:
 
-    >`pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
+    `pip install --user haptools` or (`pip install haptools` --> `ls ~/.local/bin/` --> `export PATH=$PATH:$HOME/.local/bin`)
 
     **Note**: If you attempting to run on a windows machine, haptools may not install. Blink can still be built/installed, but with limited functionality. See **Troubleshooting** for more information.
 
 * [`qqman`](https://pypi.org/project/qqman/):
-    >`pip install qqman`
+    
+    `pip install qqman`
 * [statsmodels](https://www.statsmodels.org/stable/install.html):
-    > `python -m pip install statsmodels
+    
+     `python -m pip install statsmodels`
 
 The following should automatically also be installed, if not:
 * [numpy](https://numpy.org/install/):
@@ -55,15 +57,18 @@ The following should automatically also be installed, if not:
 ---
 Then git clone our repository using this command (We recommend making a new directory and then cloning it in that directory):
 
->`git clone https://github.com/drahmanucsd/Blink-python-GWAS-.git`
+`git clone https://github.com/drahmanucsd/Blink-python-GWAS-.git`
 
 Once you are in the directory you created and the required libraries are installed you can install `blink` with the following command:
 
->`cd Blink-python-GWAS-`
+
+`cd Blink-python-GWAS-`
+
 `python setup.py install`
 
 or
->`python setup.py install --user` (if you don't have root permission and run into an error) 
+
+`python setup.py install --user` (if you don't have root permission and run into an error) 
 
 **_DO THIS RIGHT AFTER AS WELL_** `export PATH=$PATH:$HOME/.local/bin`
 
@@ -74,13 +79,13 @@ If `blink` was installed correctly, try `blink -h` to see if instructions to run
 
 * Download the vcf file we used using 
 
->`wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz`
+    `wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz`
 * It will take a while because it is an over 2gbs
 * Feel free to change the variants in the blink.py file but we have defaulted it to rs149635655 and rs141306699 to work with that specific 1000Genomes dataset
 
 Run the command below to simulate the phenotypes:
 
->`blink simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
+`blink simdata --i GENOTYPES.vcf.gz --hapout PATH_TO_output.hap --phenout NAME_OF_FILE.phen --hpath ~/.local/bin/haptools`
 
 Ex: `blink simdata --i ~/teams/31/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz --hapout ~/teams/31/output.hap --phenout simulated.phen --hpath ~/.local/bin/haptools`
 
@@ -94,7 +99,7 @@ Run the command below to run GWAS on the dataset:
 
 For this part of the test we will be using lab3_GWAS's .vcf.gz and .phen file due to the size being smaller
 
->`blink gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
+`blink gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT`
 
 Run this example command below to run it on the lab 3 GWAS data!
 
@@ -104,7 +109,7 @@ Access the test.png file which will be located in the directory you call the com
 
 If you would like more information run this command: 
 
->`python blink.py gwas -h`
+`python blink.py gwas -h`
 
 Have fun :)
 
@@ -137,7 +142,8 @@ Windows users may encounter an issue with downloading haptools. This is due to p
 **Note**: Blink can still run without haptools, however the **simdata** function will not work.
 
  It is recomended to update pip:
->`pip install 'pip>=20.3'`
+
+`pip install 'pip>=20.3'`
 
 [Pysam](https://pysam.readthedocs.io/en/latest/installation.html) can also be directly instlaled:
 
@@ -148,7 +154,8 @@ Windows users may encounter an issue with downloading haptools. This is due to p
     `pip install nrel-pysam`
 
 Then try to install haptools again:
->`pip install haptools`
+
+`pip install haptools`
 
 To rebuild blink, make sure to first uninstall the current build:
 ```
