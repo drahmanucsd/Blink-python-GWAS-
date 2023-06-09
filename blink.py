@@ -1,7 +1,6 @@
 from haptools import data
 from haptools.sim_phenotype import Haplotype
 import numpy as np
-import seaborn as sns
 import statsmodels.api as sm
 from qqman import qqman
 import argparse
