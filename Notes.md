@@ -1,7 +1,4 @@
-
-
-New link math check?
-https://zzz.bwh.harvard.edu/plink/tutorial.shtml
+Used Lab 3 GWAS code as a reference!
 
 # Citations
 1. Massarat, A. R., Lamkin, M., Reeve, C., Williams, A. L., D’Antonio, M., & Gymrek,
