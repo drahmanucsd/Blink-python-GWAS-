@@ -98,7 +98,7 @@ If `blink` was installed correctly, try `blink -h` to see if instructions to run
 ```sh
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase1/analysis_results/integrated_call_sets/ALL.chr21.integrated_phase1_v3.20101123.snps_indels_svs.genotypes.vcf.gz
 ```
-* It will take a while because it is an over 2gbs
+* It will take a while because it is an over 2 GB
 * Feel free to change the variants in the blink.py file but we have defaulted it to rs149635655 and rs141306699 to work with that specific 1000Genomes dataset
 
 Run the command below to simulate the phenotypes:
