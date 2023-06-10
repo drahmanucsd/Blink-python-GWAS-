@@ -96,8 +96,8 @@ def process_SNPS(genotype_df, phenotype_df, row_number,maf):
     column_names = genotype_df.columns.tolist() #this is a list of all sample ids
     values = genotype_df.iloc[row_number].values.tolist()
     
-    recessive_count = 0
-    dominant_count = 0
+    recessive_count = 0.0
+    dominant_count = 0.0
 
         
     sum_values = [int(string.split('|')[0]) + int(string.split('|')[1][0]) for string in values] #this is a list of the summed values per row
