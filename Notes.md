@@ -19,7 +19,7 @@ Gymrek, M. Lab 3 Population genetics and GWAS.
 - Pandas
 - Matplotlib
 
-# Resources Used
+# Notes
 What plink does:
 [https://zzz.bwh.harvard.edu/plink/]()
 
