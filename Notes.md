@@ -1,4 +1,4 @@
-Used Lab 3 GWAS code as a reference!
+Used Lab 3 GWAS code as a reference to help us implement our linear regression model!
 
 # Citations
 1. Massarat, A. R., Lamkin, M., Reeve, C., Williams, A. L., D’Antonio, M., & Gymrek,
