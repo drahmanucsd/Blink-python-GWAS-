@@ -11,9 +11,9 @@ This tool, Blink, is used to perform genome-wide association studies (GWAS). GWA
 * Installation Instructions
     - Install Prerequisites
     - Clone Repository
-* Example Testing
-    - Simulation Generation
-    - Runnin GWAS
+* Testing Data
+    - Simulating phenotypes
+    - Running GWAS
 * Usage Instructions
     - Options Description
 * Troubleshooting
