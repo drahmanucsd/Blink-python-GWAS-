@@ -110,7 +110,7 @@ def process_SNPS(genotype_df, phenotype_df, row_number,maf):
     for val in values:
         recessive_count += val.count('1')
         dominant_count += val.count('0')
-    if recessive_count == 0 or recessive_count/(recessive_count+dominant_count)<maf or recessive_count/(recessive_count+dominant_count)<maf:
+    if recessive_count == 0 or recessive_count/(recessive_count+dominant_count)<maf:
         return None, None
     gts = (gts-np.mean(gts))/np.sqrt(np.var(gts))
     pts = phenotype_df.get("Val").to_numpy()
