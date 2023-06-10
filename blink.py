@@ -220,7 +220,7 @@ def readData(genotypeData, phenotypeData,outfile,maf=0.01):
 #     pd.set_option('display.max_rows', None)    # Show all rows
 #     pd.set_option('display.max_columns', None) # Show all columns
 
-    print('Files read. Manipuliating data...')
+    print('Files read. Manipuliating data...\n Disclamer: this code takes a while to run be patient as code runs')
     #Iterates over every row in genotypes to generate a pval and beta list for plotting
     for i in range(get_snps_reformat.shape[0]):
         out_beta, out_pval = process_SNPS(get_snps_reformat, phenotypes_reformat, i,maf) #CALL process_SNPS

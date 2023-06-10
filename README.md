@@ -119,12 +119,12 @@ Run the command below to run GWAS on the dataset:
 For this part of the test we will be using lab3_GWAS's .vcf.gz and .phen file due to the size being smaller
 
 ```sh
-blink gwas --g GENOTYPES.vcf.gz --p NAME_OF_FILE.phen --o PATH_OF_OUTPUT
+blink gwas --geno GENOTYPES.vcf.gz --phen NAME_OF_FILE.phen --out PATH_OF_OUTPUT
 ```
 
 Run this example command below to run it on the lab 3 GWAS data!
 
-Ex: `blink gwas --g ~/public/lab3/lab3_gwas.vcf.gz --p ~/public/lab3/lab3_gwas.phen`
+Ex: `blink gwas --geno ~/public/lab3/lab3_gwas.vcf.gz --phen ~/public/lab3/lab3_gwas.phen`
 
 Access the test.png file which will be located in the directory you call the command on and will contain the Manhattan and QQ plot!
 
