@@ -13,7 +13,6 @@ Gymrek, M. Lab 3 Population genetics and GWAS.
 ## Python Packages Used
 - Haptools
 - Numpy
-- Seaborn
 - Statsmodels
 - Qqman  
 - Argparse
