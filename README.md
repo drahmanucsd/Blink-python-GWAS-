@@ -52,15 +52,15 @@ Installation requires the following packages:
 The following should automatically also be installed, if not:
 * [numpy](https://numpy.org/install/):
     ```sh
-        pip install numpy
+    pip install numpy
     ```
 * [pandas](https://pandas.pydata.org/getting_started.html):
     ```sh
-        pip install pandas
+    pip install pandas
     ```
 * [matplotlib](https://matplotlib.org/stable/users/installing/index.html):
     ```sh
-        pip install matplotlib
+    pip install matplotlib
     ```
 
 **Note**: If you do not have root access, you may have to specify the user as similar to haptools above. 
