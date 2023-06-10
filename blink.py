@@ -153,6 +153,7 @@ def plot_qq(pval_list, beta_list, genotype_data,outfile):
     fig_path = outfile + '.png'
     qq_df.to_csv(csv_path)
     plt.savefig(fig_path, bbox_inches='tight') 
+    print("Files saved.")
 
 
 def find_skip_lines(file_path):
