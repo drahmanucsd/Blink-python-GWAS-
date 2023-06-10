@@ -84,7 +84,7 @@ python setup.py install
 or (if you don't have root permission and run into an error) 
 
 ```sh
-python setup.py install --user` 
+python setup.py install --user
 ```
 **_DO THIS RIGHT AFTER AS WELL_** `export PATH=$PATH:$HOME/.local/bin`
 
