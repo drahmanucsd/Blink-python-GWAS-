@@ -152,6 +152,7 @@ The following are the currently working options/parameters available for the phe
 * `--hapout` --> input the path of haplotype file (.hap format or else an error will be thrown)
 * `--phenout` --> specify an output file for the phenotypes (for our current code a .phen output file should be specify)
 * `--hpath` --> this is just the location of where haptools is installed ~/.local/bin/haptools
+* `--snps` --> the variants used to generate the phenotypes
 
 ### Options to run GWAS (Ran using the argument `gwas` followed by the options below)
 * `--geno` --> input the path of genotype file (.vcf format or else an error will be thrown)

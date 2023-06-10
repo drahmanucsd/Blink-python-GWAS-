@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 
 ## Data Simulation Functions
 
-def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
+def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path,snp_variants):
     """
     Function: Generates phenotype files given vcf input
     Parameters:
@@ -35,7 +35,7 @@ def vcf_to_hap(vcf_path:str, hpath: str, hap_out_path: str, pheno_out_path):
     if hpath == None or hpath == '' or not os.path.isdir(hpath):
         hpath = 'haptools'
     # which variants do we want to write to the haplotype file?
-    variants = {"rs149635655", "rs141306699"}
+    variants = set(snp_variants)
 
     # load the genotypes file
     # you can use either a VCF or PGEN file
@@ -249,6 +249,7 @@ def main():
     simdata.add_argument('--hapout',type=str,help="Path to output .hap file", required=True)
     simdata.add_argument('--phenout',type=str,help="Path to output file of phenotypes", required=True)
     simdata.add_argument('--hpath', help='Haptools path (Eg: ~/.local/bin/haptools)', type=str, required=False)
+    simdata.add_argument('--snps', nargs="+", help='Haptools path (Eg: ~/.local/bin/haptools)', default=["rs149635655", "rs141306699"])
     # gwas func parameters
     # takes required geno, pheno, and output file
     gwas.add_argument('--geno',type=str,help="Path to the genotype file (.vcf.gz format)", required=True)
@@ -260,7 +261,7 @@ def main():
     
     #Function Exec calls
     if args.command == 'simdata':
-        vcf_to_hap(args.i,args.hpath,args.hapout, args.phenout)
+        vcf_to_hap(args.i,args.hpath,args.hapout, args.phenout,args.snps)
     elif args.command == 'gwas':
         readData(args.geno,args.pheno,args.out,args.maf)
     else:
