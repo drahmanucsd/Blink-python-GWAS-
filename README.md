@@ -23,6 +23,7 @@ This tool, Blink, is used to perform genome-wide association studies (GWAS). GWA
 
 # Installation Instructions
 
+## Install Prerequisites
 Installation requires the following packages:
 
 * [`haptools`](https://haptools.readthedocs.io/en/stable/project_info/installation.html) (Only package not already installed in datahub)
